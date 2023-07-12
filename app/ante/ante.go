@@ -99,12 +99,25 @@ func NewAnteHandler2(options ante2.HandlerOptions) (sdk.AnteDepGenerator, error)
 	return func(txDeps []sdkacltypes.AccessOperation, tx sdk.Tx, txIndex int) (newTxDeps []sdkacltypes.AccessOperation, err error) {
 
 		var anteDepGenerator sdk.AnteDepGenerator
+
 		txWithExtensions, ok := tx.(authante.HasExtensionOptionsTx)
 		if ok {
 			opts := txWithExtensions.GetExtensionOptions()
 			if len(opts) > 0 {
 
 				switch typeURL := opts[0].GetTypeUrl(); typeURL {
+				case "/ethermint.evm.v1.ExtensionOptionsEthereumTx":
+					// handle as *evmtypes.MsgEthereumTx
+					_, anteDepGenerator, err = ante2.NewAnteHandlerAndDepGeneratorForEVM(options)
+					if err != nil {
+						return nil, err
+					}
+				case "/ethermint.types.v1.ExtensionOptionsWeb3Tx":
+					// Deprecated: Handle as normal Cosmos SDK tx, except signature is checked for Legacy EIP712 representation
+					_, anteDepGenerator, err = ante2.NewAnteHandlerAndDepGeneratorForEVM(options)
+					if err != nil {
+						return nil, err
+					}
 				case "/ethermint.types.v1.ExtensionOptionDynamicFeeTx":
 					// cosmos-sdk tx with dynamic fee extension
 					_, anteDepGenerator, err = ante2.NewAnteHandlerAndDepGenerator(options)

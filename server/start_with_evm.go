@@ -6,6 +6,7 @@ import (
 	"context"
 	"fmt"
 	"github.com/fibonacci-chain/core/indexer"
+	srvflags "github.com/fibonacci-chain/core/server/flags"
 	ethermint "github.com/fibonacci-chain/core/types"
 	"net/http"
 	"os"
@@ -42,6 +43,7 @@ import (
 	storetypes "github.com/cosmos/cosmos-sdk/store/types"
 	"github.com/cosmos/cosmos-sdk/telemetry"
 	"github.com/cosmos/cosmos-sdk/utils/tracing"
+	configserv "github.com/fibonacci-chain/core/server/config"
 	serverCfg "github.com/fibonacci-chain/core/server/config"
 )
 
@@ -253,6 +255,9 @@ is performed. Note, when enabled, gRPC will also be automatically enabled.
 	cmd.Flags().Bool(flagGRPCOnly, false, "Start the node in gRPC query only mode (no Tendermint process is started)")
 	cmd.Flags().Bool(flagGRPCEnable, true, "Define if the gRPC server should be enabled")
 	cmd.Flags().String(flagGRPCAddress, config.DefaultGRPCAddress, "the gRPC server address to listen on")
+
+	cmd.Flags().String(srvflags.EVMTracer, configserv.DefaultEVMTracer, "the EVM tracer type to collect execution traces from the EVM transaction execution (json|struct|access_list|markdown)") //nolint:lll
+	cmd.Flags().Uint64(srvflags.EVMMaxTxGasWanted, configserv.DefaultMaxTxGasWanted, "the gas wanted for each eth tx returned in ante handler in check tx mode")                                 //nolint:lll
 
 	cmd.Flags().Bool(flagGRPCWebEnable, true, "Define if the gRPC-Web server should be enabled. (Note: gRPC must also be enabled.)")
 	cmd.Flags().String(flagGRPCWebAddress, config.DefaultGRPCWebAddress, "The gRPC-Web server address to listen on")
