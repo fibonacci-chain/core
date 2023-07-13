@@ -28,6 +28,8 @@ require (
 	github.com/holiman/uint256 v1.2.0
 	github.com/improbable-eng/grpc-web v0.14.1
 	github.com/k0kubun/pp/v3 v3.2.0
+	github.com/onsi/ginkgo/v2 v2.0.0
+	github.com/onsi/gomega v1.18.1
 	github.com/pkg/errors v0.9.1
 	github.com/rs/cors v1.8.2
 	github.com/rs/zerolog v1.27.0
@@ -131,8 +133,6 @@ require (
 	github.com/mtibben/percent v0.2.1 // indirect
 	github.com/oasisprotocol/curve25519-voi v0.0.0-20210609091139-0a56a4bca00b // indirect
 	github.com/olekukonko/tablewriter v0.0.5 // indirect
-	github.com/onsi/ginkgo v1.16.4 // indirect
-	github.com/onsi/gomega v1.18.1 // indirect
 	github.com/opencontainers/runc v1.1.5 // indirect
 	github.com/pelletier/go-toml v1.9.5 // indirect
 	github.com/pelletier/go-toml/v2 v2.0.5 // indirect

@@ -5,6 +5,13 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"io"
+	"os"
+	"path/filepath"
+	"strings"
+	"sync"
+	"time"
+
 	authante "github.com/cosmos/cosmos-sdk/x/auth/ante"
 	"github.com/fibonacci-chain/core/app/ante2"
 	ethermint "github.com/fibonacci-chain/core/types"
@@ -15,12 +22,6 @@ import (
 	"github.com/fibonacci-chain/core/x/feemarket"
 	feemarketkeeper "github.com/fibonacci-chain/core/x/feemarket/keeper"
 	feemarkettypes "github.com/fibonacci-chain/core/x/feemarket/types"
-	"io"
-	"os"
-	"path/filepath"
-	"strings"
-	"sync"
-	"time"
 
 	storetypes "github.com/cosmos/cosmos-sdk/store/types"
 	srvflags "github.com/fibonacci-chain/core/server/flags"
@@ -432,7 +433,7 @@ func New(
 
 	// add keepers
 	app.AccountKeeper = authkeeper.NewAccountKeeper(
-		appCodec, keys[authtypes.StoreKey], app.GetSubspace(authtypes.ModuleName), authtypes.ProtoBaseAccount, maccPerms,
+		appCodec, keys[authtypes.StoreKey], app.GetSubspace(authtypes.ModuleName), ethermint.ProtoAccount, maccPerms,
 	)
 	app.BankKeeper = bankkeeper.NewBaseKeeperWithDeferredCache(
 		appCodec, keys[banktypes.StoreKey], app.AccountKeeper, app.GetSubspace(banktypes.ModuleName), app.ModuleAccountAddrs(), memKeys[banktypes.DeferredCacheStoreKey],
@@ -1019,6 +1020,9 @@ func (app *App) setAnteHandler(wasmConfig *wasm.Config, txConfig client.TxConfig
 		AccessControlKeeper: &app.AccessControlKeeper,
 		CheckTxMemState:     app.CheckTxMemState,
 	})
+	if err != nil {
+		panic(err)
+	}
 
 	app.SetAnteDepGenerator(ad)
 	app.SetAnteHandler(anteHandler)

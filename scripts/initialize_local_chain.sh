@@ -118,4 +118,5 @@ fi
 ~/go/bin/fbchaind config keyring-backend test
 
 # start the chain with log tracing
+# --evm.tracer json
 GORACE="log_path=/tmp/race/fbchaind_race" ~/go/bin/fbchaind start --trace --chain-id ${CHAIN_ID}
