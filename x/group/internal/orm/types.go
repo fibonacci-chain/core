@@ -16,7 +16,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/codec"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 	"github.com/cosmos/cosmos-sdk/types/query"
-	"github.com/fibonacci-chain/fibonacci-protocol/x/group/errors"
+	"github.com/fibonacci-chain/core/x/group/errors"
 )
 
 // Unique identifier of a persistent table.

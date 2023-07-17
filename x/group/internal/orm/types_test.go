@@ -15,7 +15,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/codec/types"
 	"github.com/cosmos/cosmos-sdk/testutil/testdata"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
-	"github.com/fibonacci-chain/fibonacci-protocol/x/group/errors"
+	"github.com/fibonacci-chain/core/x/group/errors"
 )
 
 func TestTypeSafeRowGetter(t *testing.T) {

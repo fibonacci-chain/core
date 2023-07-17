@@ -6,7 +6,7 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/fibonacci-chain/fibonacci-protocol/x/group"
+	"github.com/fibonacci-chain/core/x/group"
 )
 
 func TestThresholdDecisionPolicyValidate(t *testing.T) {

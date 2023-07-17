@@ -16,9 +16,9 @@ import (
 	"github.com/cosmos/cosmos-sdk/codec/types"
 	"github.com/cosmos/cosmos-sdk/testutil/testdata"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/fibonacci-chain/fibonacci-protocol/x/group"
-	"github.com/fibonacci-chain/fibonacci-protocol/x/group/internal/orm"
-	"github.com/fibonacci-chain/fibonacci-protocol/x/group/keeper"
+	"github.com/fibonacci-chain/core/x/group"
+	"github.com/fibonacci-chain/core/x/group/internal/orm"
+	"github.com/fibonacci-chain/core/x/group/keeper"
 )
 
 type invariantTestSuite struct {

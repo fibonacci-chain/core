@@ -3,7 +3,7 @@ package group
 import (
 	"github.com/cosmos/cosmos-sdk/codec/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/fibonacci-chain/fibonacci-protocol/types/tx"
+	"github.com/fibonacci-chain/core/types/tx"
 )
 
 // GetMsgs unpacks p.Messages Any's into sdk.Msg's

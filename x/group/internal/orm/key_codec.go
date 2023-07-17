@@ -5,7 +5,7 @@ import (
 
 	errorsmod "cosmossdk.io/errors"
 
-	"github.com/fibonacci-chain/fibonacci-protocol/x/group/errors"
+	"github.com/fibonacci-chain/core/x/group/errors"
 )
 
 // MaxBytesLen is the maximum allowed length for a key part of type []byte

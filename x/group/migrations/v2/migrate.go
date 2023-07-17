@@ -9,8 +9,8 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/address"
 	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
-	"github.com/fibonacci-chain/fibonacci-protocol/x/group"
-	"github.com/fibonacci-chain/fibonacci-protocol/x/group/internal/orm"
+	"github.com/fibonacci-chain/core/x/group"
+	"github.com/fibonacci-chain/core/x/group/internal/orm"
 )
 
 const (

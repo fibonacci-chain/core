@@ -7,8 +7,8 @@ import (
 	"github.com/stretchr/testify/require"
 
 	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
-	"github.com/fibonacci-chain/fibonacci-protocol/x/group"
-	v2 "github.com/fibonacci-chain/fibonacci-protocol/x/group/migrations/v2"
+	"github.com/fibonacci-chain/core/x/group"
+	v2 "github.com/fibonacci-chain/core/x/group/migrations/v2"
 )
 
 func TestMigrateGenState(t *testing.T) {

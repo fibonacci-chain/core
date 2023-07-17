@@ -6,7 +6,7 @@ import (
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	banktypes "github.com/cosmos/cosmos-sdk/x/bank/types"
-	"github.com/fibonacci-chain/fibonacci-protocol/x/group"
+	"github.com/fibonacci-chain/core/x/group"
 )
 
 func (s *TestSuite) TestTally() {

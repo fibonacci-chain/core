@@ -2,7 +2,7 @@ package keeper
 
 import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	v2 "github.com/fibonacci-chain/fibonacci-protocol/x/group/migrations/v2"
+	v2 "github.com/fibonacci-chain/core/x/group/migrations/v2"
 )
 
 // Migrator is a struct for handling in-place store migrations.

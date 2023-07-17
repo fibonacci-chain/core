@@ -10,7 +10,7 @@ import (
 	"cosmossdk.io/store/types"
 
 	"github.com/cosmos/cosmos-sdk/types/query"
-	"github.com/fibonacci-chain/fibonacci-protocol/x/group/errors"
+	"github.com/fibonacci-chain/core/x/group/errors"
 )
 
 // indexer creates and modifies the second MultiKeyIndex based on the operations and changes on the primary object.

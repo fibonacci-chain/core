@@ -15,7 +15,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/testutil/testdata"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/query"
-	"github.com/fibonacci-chain/fibonacci-protocol/x/group/errors"
+	"github.com/fibonacci-chain/core/x/group/errors"
 )
 
 func TestReadAll(t *testing.T) {

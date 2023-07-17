@@ -6,8 +6,7 @@ import (
 
 	errorsmod "cosmossdk.io/errors"
 
-	"github.com/cockroachdb/apd/v2"
-	"github.com/fibonacci-chain/fibonacci-protocol/x/group/errors"
+	"github.com/fibonacci-chain/core/x/group/errors"
 )
 
 // Dec is a wrapper struct around apd.Decimal that does no mutation of apd.Decimal's when performing

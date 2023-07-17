@@ -7,7 +7,7 @@ import (
 
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/flags"
-	"github.com/fibonacci-chain/fibonacci-protocol/x/group"
+	"github.com/fibonacci-chain/core/x/group"
 )
 
 // QueryCmd returns the cli query commands for the group module.

@@ -11,9 +11,9 @@ import (
 	codectypes "github.com/cosmos/cosmos-sdk/codec/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
-	"github.com/fibonacci-chain/fibonacci-protocol/x/group/errors"
-	"github.com/fibonacci-chain/fibonacci-protocol/x/group/internal/math"
-	"github.com/fibonacci-chain/fibonacci-protocol/x/group/internal/orm"
+	"github.com/fibonacci-chain/core/x/group/errors"
+	"github.com/fibonacci-chain/core/x/group/internal/math"
+	"github.com/fibonacci-chain/core/x/group/internal/orm"
 )
 
 // DecisionPolicyResult is the result of whether a proposal passes or not a

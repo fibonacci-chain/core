@@ -5,9 +5,9 @@ import (
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
-	"github.com/fibonacci-chain/fibonacci-protocol/x/group"
-	"github.com/fibonacci-chain/fibonacci-protocol/x/group/errors"
-	"github.com/fibonacci-chain/fibonacci-protocol/x/group/internal/orm"
+	"github.com/fibonacci-chain/core/x/group"
+	"github.com/fibonacci-chain/core/x/group/errors"
+	"github.com/fibonacci-chain/core/x/group/internal/orm"
 )
 
 // Tally is a function that tallies a proposal by iterating through its votes,

@@ -9,7 +9,7 @@ import (
 
 	"github.com/cosmos/cosmos-sdk/codec"
 	"github.com/cosmos/cosmos-sdk/types"
-	"github.com/fibonacci-chain/fibonacci-protocol/x/group"
+	"github.com/fibonacci-chain/core/x/group"
 )
 
 // InitGenesis initializes the group module's genesis state.

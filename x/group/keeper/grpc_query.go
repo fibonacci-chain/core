@@ -11,9 +11,9 @@ import (
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/query"
-	"github.com/fibonacci-chain/fibonacci-protocol/x/group"
-	"github.com/fibonacci-chain/fibonacci-protocol/x/group/errors"
-	"github.com/fibonacci-chain/fibonacci-protocol/x/group/internal/orm"
+	"github.com/fibonacci-chain/core/x/group"
+	"github.com/fibonacci-chain/core/x/group/errors"
+	"github.com/fibonacci-chain/core/x/group/internal/orm"
 )
 
 var _ group.QueryServer = Keeper{}

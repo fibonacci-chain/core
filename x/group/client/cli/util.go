@@ -7,7 +7,7 @@ import (
 
 	"github.com/cosmos/cosmos-sdk/codec"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/fibonacci-chain/fibonacci-protocol/x/group"
+	"github.com/fibonacci-chain/core/x/group"
 )
 
 // parseDecisionPolicy reads and parses the decision policy.

@@ -14,8 +14,8 @@ import (
 	"github.com/cosmos/cosmos-sdk/client/flags"
 	"github.com/cosmos/cosmos-sdk/client/tx"
 	"github.com/cosmos/cosmos-sdk/version"
-	"github.com/fibonacci-chain/fibonacci-protocol/x/group"
-	"github.com/fibonacci-chain/fibonacci-protocol/x/group/internal/math"
+	"github.com/fibonacci-chain/core/x/group"
+	"github.com/fibonacci-chain/core/x/group/internal/math"
 )
 
 const (

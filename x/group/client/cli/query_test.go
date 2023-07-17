@@ -9,7 +9,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/client/flags"
 	svrcmd "github.com/cosmos/cosmos-sdk/server/cmd"
 	"github.com/cosmos/cosmos-sdk/testutil"
-	"github.com/fibonacci-chain/fibonacci-protocol/x/group/client/cli"
+	"github.com/fibonacci-chain/core/x/group/client/cli"
 )
 
 func (s *CLITestSuite) TestQueryGroupInfo() {

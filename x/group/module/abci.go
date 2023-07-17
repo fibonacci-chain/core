@@ -2,7 +2,7 @@ package module
 
 import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/fibonacci-chain/fibonacci-protocol/x/group/keeper"
+	"github.com/fibonacci-chain/core/x/group/keeper"
 )
 
 // EndBlocker called at every block, updates proposal's `FinalTallyResult` and
