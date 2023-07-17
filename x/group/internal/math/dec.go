@@ -6,6 +6,7 @@ import (
 
 	errorsmod "cosmossdk.io/errors"
 
+	"github.com/cockroachdb/apd/v2"
 	"github.com/fibonacci-chain/core/x/group/errors"
 )
 
