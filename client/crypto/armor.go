@@ -20,17 +20,6 @@ import (
 	"github.com/spf13/viper"
 )
 
-// const (
-// 	blockTypePrivKey = "TENDERMINT PRIVATE KEY"
-// 	blockTypeKeyInfo = "TENDERMINT KEY INFO"
-// 	blockTypePubKey  = "TENDERMINT PUBLIC KEY"
-
-// 	defaultAlgo = "secp256k1"
-
-// 	headerVersion = "version"
-// 	headerType    = "type"
-// )
-
 type armorConfig struct {
 	blockTypePrivKey, blockTypeKeyInfo, blockTypePubKey, defaultAlgo, headerVersion, headerType string
 }
