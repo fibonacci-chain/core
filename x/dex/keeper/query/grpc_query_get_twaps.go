@@ -11,10 +11,10 @@ func (k KeeperWrapper) GetTwaps(goCtx context.Context, req *types.QueryGetTwapsR
 	ctx := sdk.UnwrapSDKContext(goCtx)
 	allRegisteredPairs := k.GetAllRegisteredPairs(ctx, req.ContractAddr)
 	twaps := []*types.Twap{}
-	for _, pair := range allRegisteredPairs {
+	for index, pair := range allRegisteredPairs {
 		prices := k.GetPricesForTwap(ctx, req.ContractAddr, pair, req.LookbackSeconds)
 		twaps = append(twaps, &types.Twap{
-			Pair:            &pair, //nolint:gosec,exportloopref // USING THE POINTER HERE COULD BE BAD, LET'S CHECK IT.
+			Pair:            &allRegisteredPairs[index], //nolint:gosec,exportloopref // USING THE POINTER HERE COULD BE BAD, LET'S CHECK IT.
 			Twap:            calculateTwap(ctx, prices, req.LookbackSeconds),
 			LookbackSeconds: req.LookbackSeconds,
 		})

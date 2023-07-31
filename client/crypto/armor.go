@@ -4,8 +4,9 @@ import (
 	"bytes"
 	"encoding/hex"
 	"fmt"
-	"github.com/cosmos/cosmos-sdk/crypto/utils"
 	"io"
+
+	"github.com/cosmos/cosmos-sdk/crypto/utils"
 
 	"github.com/tendermint/tendermint/crypto"
 	"golang.org/x/crypto/openpgp/armor" // nolint: staticcheck
@@ -15,18 +16,13 @@ import (
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 	"github.com/fibonacci-chain/core/client/crypto/keys/bcrypt"
 	"github.com/fibonacci-chain/core/client/crypto/xsalsa20symmetric"
+
+	"github.com/spf13/viper"
 )
 
-const (
-	blockTypePrivKey = "TENDERMINT PRIVATE KEY"
-	blockTypeKeyInfo = "TENDERMINT KEY INFO"
-	blockTypePubKey  = "TENDERMINT PUBLIC KEY"
-
-	defaultAlgo = "secp256k1"
-
-	headerVersion = "version"
-	headerType    = "type"
-)
+type armorConfig struct {
+	blockTypePrivKey, blockTypeKeyInfo, blockTypePubKey, defaultAlgo, headerVersion, headerType string
+}
 
 // BcryptSecurityParameter is security parameter var, and it can be changed within the lcd test.
 // Making the bcrypt security parameter a var shouldn't be a security issue:
@@ -48,24 +44,29 @@ var BcryptSecurityParameter = 12
 
 // Armor the InfoBytes
 func ArmorInfoBytes(bz []byte) string {
+
+	aconfig := loadConfig("./config/config.json")
+
 	header := map[string]string{
-		headerType:    "Info",
-		headerVersion: "0.0.0",
+		aconfig.headerType:    "Info",
+		aconfig.headerVersion: "0.0.0",
 	}
 
-	return EncodeArmor(blockTypeKeyInfo, header, bz)
+	return EncodeArmor(aconfig.blockTypeKeyInfo, header, bz)
 }
 
 // Armor the PubKeyBytes
 func ArmorPubKeyBytes(bz []byte, algo string) string {
+	aconfig := loadConfig("./config/config.json")
+
 	header := map[string]string{
-		headerVersion: "0.0.1",
+		aconfig.headerVersion: "0.0.1",
 	}
 	if algo != "" {
-		header[headerType] = algo
+		header[aconfig.headerType] = algo
 	}
 
-	return EncodeArmor(blockTypePubKey, header, bz)
+	return EncodeArmor(aconfig.blockTypePubKey, header, bz)
 }
 
 //-----------------------------------------------------------------
@@ -73,13 +74,15 @@ func ArmorPubKeyBytes(bz []byte, algo string) string {
 
 // Unarmor the InfoBytes
 func UnarmorInfoBytes(armorStr string) ([]byte, error) {
-	bz, header, err := unarmorBytes(armorStr, blockTypeKeyInfo)
+	aconfig := loadConfig("./config/config.json")
+
+	bz, header, err := unarmorBytes(armorStr, aconfig.blockTypeKeyInfo)
 	if err != nil {
 		return nil, err
 	}
 
-	if header[headerVersion] != "0.0.0" {
-		return nil, fmt.Errorf("unrecognized version: %v", header[headerVersion])
+	if header[aconfig.headerVersion] != "0.0.0" {
+		return nil, fmt.Errorf("unrecognized version: %v", header[aconfig.headerVersion])
 	}
 
 	return bz, nil
@@ -87,24 +90,26 @@ func UnarmorInfoBytes(armorStr string) ([]byte, error) {
 
 // UnarmorPubKeyBytes returns the pubkey byte slice, a string of the algo type, and an error
 func UnarmorPubKeyBytes(armorStr string) (bz []byte, algo string, err error) {
-	bz, header, err := unarmorBytes(armorStr, blockTypePubKey)
+	aconfig := loadConfig("./config/config.json")
+
+	bz, header, err := unarmorBytes(armorStr, aconfig.blockTypePubKey)
 	if err != nil {
 		return nil, "", fmt.Errorf("couldn't unarmor bytes: %v", err)
 	}
 
-	switch header[headerVersion] {
+	switch header[aconfig.headerVersion] {
 	case "0.0.0":
-		return bz, defaultAlgo, err
+		return bz, aconfig.defaultAlgo, err
 	case "0.0.1":
-		if header[headerType] == "" {
-			header[headerType] = defaultAlgo
+		if header[aconfig.headerType] == "" {
+			header[aconfig.headerType] = aconfig.defaultAlgo
 		}
 
-		return bz, header[headerType], err
+		return bz, header[aconfig.headerType], err
 	case "":
 		return nil, "", fmt.Errorf("header's version field is empty")
 	default:
-		err = fmt.Errorf("unrecognized version: %v", header[headerVersion])
+		err = fmt.Errorf("unrecognized version: %v", header[aconfig.headerVersion])
 		return nil, "", err
 	}
 }
@@ -128,6 +133,9 @@ func unarmorBytes(armorStr, blockType string) (bz []byte, header map[string]stri
 
 // Encrypt and armor the private key.
 func EncryptArmorPrivKey(privKey cryptotypes.PrivKey, passphrase string, algo string) string {
+
+	aconfig := loadConfig("./config/config.json")
+
 	saltBytes, encBytes := encryptPrivKey(privKey, passphrase)
 	header := map[string]string{
 		"kdf":  "bcrypt",
@@ -135,10 +143,10 @@ func EncryptArmorPrivKey(privKey cryptotypes.PrivKey, passphrase string, algo st
 	}
 
 	if algo != "" {
-		header[headerType] = algo
+		header[aconfig.headerType] = algo
 	}
 
-	armorStr := EncodeArmor(blockTypePrivKey, header, encBytes)
+	armorStr := EncodeArmor(aconfig.blockTypePrivKey, header, encBytes)
 
 	return armorStr
 }
@@ -161,12 +169,14 @@ func encryptPrivKey(privKey cryptotypes.PrivKey, passphrase string) (saltBytes [
 
 // UnarmorDecryptPrivKey returns the privkey byte slice, a string of the algo type, and an error
 func UnarmorDecryptPrivKey(armorStr string, passphrase string) (privKey cryptotypes.PrivKey, algo string, err error) {
+	aconfig := loadConfig("./config/config.json")
+
 	blockType, header, encBytes, err := DecodeArmor(armorStr)
 	if err != nil {
 		return privKey, "", err
 	}
 
-	if blockType != blockTypePrivKey {
+	if blockType != aconfig.blockTypePrivKey {
 		return privKey, "", fmt.Errorf("unrecognized armor type: %v", blockType)
 	}
 
@@ -185,11 +195,11 @@ func UnarmorDecryptPrivKey(armorStr string, passphrase string) (privKey cryptoty
 
 	privKey, err = decryptPrivKey(saltBytes, encBytes, passphrase)
 
-	if header[headerType] == "" {
-		header[headerType] = defaultAlgo
+	if header[aconfig.headerType] == "" {
+		header[aconfig.headerType] = aconfig.defaultAlgo
 	}
 
-	return privKey, header[headerType], err
+	return privKey, header[aconfig.headerType], err
 }
 
 func decryptPrivKey(saltBytes []byte, encBytes []byte, passphrase string) (privKey cryptotypes.PrivKey, err error) {
@@ -241,4 +251,22 @@ func DecodeArmor(armorStr string) (blockType string, headers map[string]string, 
 		return "", nil, nil, err
 	}
 	return block.Type, block.Header, data, nil
+}
+
+func loadConfig(path string) armorConfig {
+
+	var aconfig armorConfig
+	viper.SetConfigFile(path)
+	viper.SetConfigType("json")
+	if err := viper.ReadInConfig(); err != nil {
+		panic(err)
+	}
+
+	aconfig.blockTypeKeyInfo = viper.GetString("blockTypeKeyInfo")
+	aconfig.blockTypeKeyInfo = viper.GetString("blockTypePubKey")
+	aconfig.blockTypeKeyInfo = viper.GetString("blockTypePrivKey")
+	aconfig.defaultAlgo = viper.GetString("defaultAlgo")
+	aconfig.headerType = viper.GetString("headerType")
+
+	return aconfig
 }
